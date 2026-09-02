@@ -16,11 +16,46 @@ while left <= right:
     # порівняй numbers[middle] з target
 ```
 
+## 💡 Пояснення простою мовою
+Бінарний пошук — це як гра "більше-менше": ти кажеш "50", комп'ютер каже "більше" — і ти вже не дивишся на ліву половину. За кожен крок відкидаємо половину варіантів!
+
+## 🧩 Розбираємо по рядках
+- `left = 0, right = len(numbers) - 1` — межі пошуку: від першого до останнього
+- `while left <= right` — поки є що перевіряти
+- `middle = (left + right) // 2` — знаходимо середину (ціле ділення)
+- Далі порівнюємо `numbers[middle]` з `target` і звужуємо межі
+
+## Приклад: шукаємо 7 у відсортованому списку
+```python
+numbers = [1, 3, 5, 7, 9, 11]
+target = 7
+
+# left=0, right=5, middle=2 → numbers[2]=5 < 7 → left=3
+# left=3, right=5, middle=4 → numbers[4]=9 > 7 → right=3
+# left=3, right=3, middle=3 → numbers[3]=7 == 7 → Found!
+# Всього 3 перевірки замість 6!
+```
+
+```mermaid
+graph TD
+    A["left=0, right=5"] --> B["middle=2, numbers[2]=5"]
+    B --> C{"5 < 7?"}
+    C -- Так --> D["left=3, right=5"]
+    D --> E["middle=4, numbers[4]=9"]
+    E --> F{"9 > 7?"}
+    F -- Так --> G["left=3, right=3"]
+    G --> H["middle=3, numbers[3]=7"]
+    H --> I["Found: index 3!"]
+    style I fill:#4caf50,color:#fff
+```
+
 ## ✏️ Основні завдання
 1. Знайди middle.
 2. Змінюй left/right.
 3. Оброби Not found.
 4. Порівняй перевірки з linear search.
+
+🙋 Підказка до завдання 3: якщо `left > right` — елемента немає у списку.
 
 ## ⭐ Challenge
 Напиши `binary_search()` і порівняй кількість перевірок із linear search.

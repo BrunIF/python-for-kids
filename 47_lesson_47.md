@@ -14,11 +14,50 @@ queue = deque(["Slime", "Zombie", "Dragon"])
 next_enemy = queue.popleft()
 ```
 
+## 💡 Пояснення простою мовою
+Черга — це як черга в магазині: хто прийшов першим — той і виходить першим (FIFO — First In, First Out). На відміну від стеку, де ми завжди беремо зверху.
+
+## 🧩 Розбираємо по рядках
+- `from collections import deque` — імпортуємо чергу (швидшу за звичайний список)
+- `deque([...])` — створюємо чергу з елементами
+- `queue.popleft()` — забираємо перший елемент (лівий)
+
+## Приклад: черга ворогів
+```python
+from collections import deque
+
+enemies = deque(["Slime", "Slime", "Zombie", "Dragon"])
+while enemies:
+    current = enemies.popleft()
+    print(f"Б'ємо: {current}!")
+# Б'ємо: Slime!
+# Б'ємо: Slime!
+# Б'ємо: Zombie!
+# Б'ємо: Dragon!
+```
+
+## Стек vs Черга
+| Стек (LIFO) | Черга (FIFO) |
+|-------------|--------------|
+| append + pop | append + popleft |
+| Останній — перший | Перший — перший |
+| Undo, history | Черга ворогів, printer |
+
+```mermaid
+graph LR
+    A["Enqueue: end"] --> B["Slime → Zombie → Dragon"]
+    B --> C["Dequeue: front"]
+    style A fill:#2196f3,color:#fff
+    style C fill:#ff9800,color:#fff
+```
+
 ## ✏️ Основні завдання
 1. Черга ворогів.
 2. Додавай у кінець.
 3. Бери з початку.
 4. Порівняй queue і stack.
+
+🙋 Підказка до завдання 4: створи однакові 3 дії — одна через `append/pop`, інша через `append/popleft`. Подивись результат!
 
 ## ⭐ Challenge
 Зроби систему хвиль ворогів через queue.

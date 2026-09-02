@@ -17,11 +17,53 @@ linear → до 1000
 binary → приблизно 10
 ```
 
+## 💡 Пояснення простою мовою
+Уяви, що ти шукаєш слово в словнику. Якщо гортаєш сторінку за сторінкою — це повільний (лінійний) пошук. А якщо одразу відкриваєш посередині і звужуєш — це швидкий (бінарний) пошук. Чим більший словник, тим більша різниця!
+
+## Порівняльна таблиця
+| Розмір | Linear Search | Binary Search |
+|--------|--------------|---------------|
+| 10 | до 10 | ~4 |
+| 100 | до 100 | ~7 |
+| 1 000 | до 1 000 | ~10 |
+| 1 000 000 | до 1 000 000 | ~20 |
+
+## Приклад: вимірюємо перевірки
+```python
+def linear_search_count(items, target):
+    count = 0
+    for i in range(len(items)):
+        count += 1
+        if items[i] == target:
+            return count
+    return count
+
+def binary_search_count(items, target):
+    count = 0
+    left, right = 0, len(items) - 1
+    while left <= right:
+        count += 1
+        middle = (left + right) // 2
+        if items[middle] == target:
+            return count
+        elif items[middle] < target:
+            left = middle + 1
+        else:
+            right = middle - 1
+    return count
+
+numbers = list(range(1000))
+print("Linear:", linear_search_count(numbers, 999))   # 1000
+print("Binary:", binary_search_count(numbers, 999))    # 10
+```
+
 ## ✏️ Основні завдання
 1. Списки 10/100/1000.
 2. Порахуй перевірки.
 3. Склади таблицю.
 4. Спробуй `time.perf_counter()`.
+
+🙋 Підказка до завдання 4: `time.perf_counter()` повертає час у секундах. Порівняй час до і після виклику функції.
 
 ## ⭐ Challenge
 Виміряй час двох пошуків на великому списку.

@@ -14,11 +14,43 @@ stack.append("move player")
 last_action = stack.pop()
 ```
 
+## 💡 Пояснення простою мовою
+Стек — це як стос тарілок: кладеш зверху (append), забираєш зверху (pop). Останнє, що ти поклав — перше, що візьмеш. Це називається LIFO (Last In — First Out).
+
+## 🧩 Розбираємо по рядках
+- `stack = []` — порожній стос тарілок
+- `stack.append(...)` — кладемо тарілку зверху
+- `stack.pop()` — забираємо верхню тарілку
+
+## Приклад: система Undo
+```python
+stack = []
+stack.append("Намалювати коло")
+stack.append("Рух гравця")
+stack.append("Стріляти")
+print(stack[-1])          # Стріляти (остання дія)
+
+undone = stack.pop()     # Забрали: Стріляти
+print(stack[-1])          # Рух гравця (тепер остання)
+```
+
+```mermaid
+graph TD
+    A["append draw circle"] --> B["append move player"]
+    B --> C["append shoot"]
+    C --> D["pop → shoot"]
+    D --> E["pop → move player"]
+    style C fill:#ff9800,color:#fff
+    style D fill:#4caf50,color:#fff
+```
+
 ## ✏️ Основні завдання
 1. Стек із 5 дій.
 2. Undo через `.pop()`.
 3. Оброби пустий stack.
 4. Покажи верхню дію.
+
+🙋 Підказка до завдання 3: спробуй `pop()` на порожньому стеку — буде помилка! Використай `if stack:` перед `pop()`.
 
 ## ⭐ Challenge
 Створи просту систему Undo.

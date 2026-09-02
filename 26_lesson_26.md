@@ -19,11 +19,68 @@ class Player:
         self.weapon = weapon
 ```
 
+## 💡 Пояснення простою мовою
+**Композиція** (has-a) означає: «Гравець *має* зброю». Зброя — це окремий об'єкт, який живе всередині гравця. Можна змінювати зброю, не переробляючи весь клас Player. Як рюкзак: змінив інструмент — а рюкзак той самий.
+
+## 🧩 Розбираємо по рядках
+```python
+class Weapon:                               # Окремий клас для зброї
+    def __init__(self, name, damage):
+        self.name = name
+        self.damage = damage
+
+class Player:
+    def __init__(self, name, weapon):        # При створенні даємо зброю
+        self.name = name
+        self.weapon = weapon                # Зберігаємо об'єкт Weapon тут
+
+sword = Weapon("Sword", 15)                # Створюємо зброю
+marko = Player("Marko", sword)             # Даємо її гравцю
+print(marko.weapon.damage)                 # 15 — дістаємо урон зброї
+```
+
+```mermaid
+graph LR
+    P["Player"] -->|"має"| W["Weapon"]
+    W -->|"ім'я"| N["Sword"]
+    W -->|"урон"| D["15"]
+    P -->|"ім'я"| NM["Marko"]
+```
+
+## 🔎 Приклад: запускай і дивись
+```python
+class Weapon:
+    def __init__(self, name, damage):
+        self.name = name
+        self.damage = damage
+
+class Player:
+    def __init__(self, name, weapon):
+        self.name = name
+        self.weapon = weapon
+
+    def attack(self):
+        print(f"{self.name} б'є {self.weapon.name} (урон: {self.weapon.damage})")
+
+sword = Weapon("Меч", 15)
+bow = Weapon("Лук", 10)
+
+marko = Player("Marko", sword)
+marko.attack()          # Marko б'є Меч (урон: 15)
+
+marko.weapon = bow      # Змінюємо зброю!
+marko.attack()          # Marko б'є Лук (урон: 10)
+```
+
 ## ✏️ Основні завдання
 1. Створи Sword, Bow, Laser.
+   🙋 *Підказка:* Три рядки `Weapon(...)` з різними назвами та уроном.
 2. Дозволь змінювати weapon.
+   🙋 *Підказка:* Просто `player.weapon = new_weapon` — Python дозволяє перезаписувати атрибути.
 3. Використай `player.weapon.damage`.
+   🙋 *Підказка:* Звернися до властивості через крапку: `player.weapon.damage`.
 4. Створи inventory зброї.
+   🙋 *Підказка:* `inventory = [sword, bow, laser]` — звичайний список об'єктів Weapon.
 
 ## ⭐ Challenge
 Зроби магазин зброї та зміну активної зброї.
