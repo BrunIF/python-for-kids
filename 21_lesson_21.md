@@ -16,11 +16,59 @@ marko.name = "Marko"
 marko.hp = 100
 ```
 
+## 💡 Пояснення простою мовою
+Клас — це **креслення** (шаблон), за яким створюються об'єкти. Один клас `Player` може породити скільки завгодно різних гравців — як форма для печива: тісто одне, а печива можна наліпити скільки завгодно. Кожен об'єкт — це окрема «іграшка», яка живе своїм життям.
+
+## 🧩 Розбираємо по рядках
+```python
+class Player:       # «Створюю шаблон з ім'ям Player»
+    pass            # Поки порожньо — тільки оголошуємо клас
+
+marko = Player()    # Роблю перший об'єкт з шаблону Player
+marko.name = "Marko"# Додаю об'єкту властивість name
+marko.hp = 100      # Додаю властивість hp (здоров'я)
+```
+
+## 🔎 Приклад: запускай і дивись
+```python
+class Monster:
+    pass
+
+goblin = Monster()
+goblin.name = "Goblin"
+goblin.hp = 30
+
+dragon = Monster()
+dragon.name = "Dragon"
+dragon.hp = 200
+
+print(goblin.name, "має", goblin.hp, "HP")
+print(dragon.name, "має", dragon.hp, "HP")
+
+goblin.hp = 0
+print(goblin.name, "має", goblin.hp, "HP")
+print(dragon.name, "має", dragon.hp, "HP")  # Dragon не змінився!
+```
+Тут бачимо: `goblin` і `dragon` — це два різних об'єкти. Змінивши одного, ми НЕ чіпаємо іншого.
+
+```mermaid
+graph TD
+    A["class Player (шаблон)"] --> B["marko = Player()"]
+    A --> C["anna = Player()"]
+    A --> D["bot = Player()"]
+    B --> E["marko.name = 'Marko'"]
+    C --> F["anna.name = 'Anna'"]
+```
+
 ## ✏️ Основні завдання
 1. Створи `Monster`.
+   🙋 *Підказка:* Пороби як `Player` з `pass`.
 2. Створи 3 монстрів.
+   🙋 *Підказка:* Зроби три рядки `m1 = Monster()`, `m2 = Monster()`, `m3 = Monster()`.
 3. Дай кожному `name`, `hp`, `damage`.
+   🙋 *Підказка:* Після кожного створення додай `m1.name = ...` тощо.
 4. Зміни лише один об'єкт і перевір незалежність інших.
+   🙋 *Підказка:* Зміни `hp` одного монстра та `print()` усіх трьох.
 
 ## ⭐ Challenge
 Створи `Player`, `Monster` і `Treasure`, а потім маленьку сцену з об'єктів.

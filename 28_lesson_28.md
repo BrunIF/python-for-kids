@@ -17,11 +17,78 @@ class Dragon(Enemy):
         return 30
 ```
 
+## 💡 Пояснення простою мовою
+Це **поліморфізм** («багато форм»): однаковий виклик `enemy.attack()` дає різний результат залежно від типу. Слайм б'є слабко, а Дракон — сильно. Один цикл обробляє всіх однаково, але результат відрізняється.
+
+## 🧩 Розбираємо по рядках
+```python
+class Slime(Enemy):
+    def attack(self):       # Перевизначаємо метод з батьківського класу
+        return 3            # Слайм: слабкий удар
+
+class Dragon(Enemy):
+    def attack(self):       # Той самий метод, але інша реалізація
+        return 30           # Дракон: потужний удар
+```
+
+```python
+# Тепер один цикл працює з усіма:
+monsters = [Slime(), Dragon(), Slime()]
+for m in monsters:
+    print(m.attack())  # 3, 30, 3
+```
+
+```mermaid
+graph TD
+    E["Enemy.attack()"] --> S["Slime → return 3"]
+    E --> D["Dragon → return 30"]
+    E --> F["FastEnemy → return 8"]
+    S --> ONE["один цикл for монстру"]
+    D --> ONE
+    F --> ONE
+```
+
+## 🔎 Приклад: запускай і дивись
+```python
+class Enemy:
+    def __init__(self, name):
+        self.name = name
+
+    def attack(self):
+        return 5  # базовий урон
+
+class Slime(Enemy):
+    def __init__(self):
+        super().__init__("Slime")
+
+    def attack(self):
+        return 3
+
+class Dragon(Enemy):
+    def __init__(self):
+        super().__init__("Dragon")
+
+    def attack(self):
+        return 30
+
+monsters = [Slime(), Dragon(), Slime(), Dragon()]
+for m in monsters:
+    print(f"{m.name} б'є на {m.attack()}")
+# Slime б'є на 3
+# Dragon б'є на 30
+# Slime б'є на 3
+# Dragon б'є на 30
+```
+
 ## ✏️ Основні завдання
 1. Перевизнач `attack()`.
+   🙋 *Підказка:* Напиши `def attack(self)` у новому класі зі своїм `return`.
 2. Перевизнач `move()`.
+   🙋 *Підказка:* Слайм повзе повільно (`self.x += 1`), Дракон літає (`self.x += 10`).
 3. Змішай типи в одному списку.
+   🙋 *Підказка:* `monsters = [Slime(), Dragon(), Slime()]` — Python дозволяє.
 4. Виклич однакові методи циклом.
+   🙋 *Підказка:* `for m in monsters: m.attack()` — той самий код для всіх.
 
 ## ⭐ Challenge
 Зроби арену, де різні монстри поводяться по-різному в одному game loop.

@@ -16,11 +16,51 @@ game/
 └── settings.py
 ```
 
+## 💡 Пояснення простою мовою
+**Рефакторинг** — це переробка коду, щоб він став чистішим, без зміни поведінки. Замість одного великого файлу розбиваємо на маленькі: кожен клас — у свій файл. Так легше знаходити баги та додавати нові фічі.
+
+## 🧩 Розбираємо по рядках
+```text
+main.py       — запускає гру, містить game loop
+player.py     — клас Player (рух, малювання, HP)
+enemy.py      — клас Enemy (рух, атака)
+coin.py       — клас Coin (збір монет)
+settings.py   — константи: ширина, висота, кольори, швидкість
+```
+
+## 🔎 Приклад: запускай і дивись
+```python
+# player.py
+class Player:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.hp = 100
+
+    def move(self, dx, dy):
+        self.x += dx
+        self.y += dy
+```
+
+```python
+# main.py
+from player import Player
+
+player = Player(200, 150)
+player.move(5, 0)
+print(f"Player at ({player.x}, {player.y}), HP: {player.hp}")
+# Player at (205, 150), HP: 100
+```
+
 ## ✏️ Основні завдання
 1. Винеси Player у файл.
+   🙋 *Підказка:* Створи `player.py`, перенеси клас Player туди та імпортуй `from player import Player`.
 2. Винеси Enemy.
+   🙋 *Підказка:* Те саме — `enemy.py` + `from enemy import Enemy`.
 3. Створи settings.py.
+   🙋 *Підказка:* `WIDTH = 800` `HEIGHT = 600` та інші константи — потім `from settings import *`.
 4. Прибери дублювання.
+   🙋 *Підказка:* Якщо однаковий код є в двох місцях — винеси в метод або змінну.
 
 ## ⭐ Challenge
 Повністю перероби Catch the Coin на OOP-проєкт із кількох файлів.
